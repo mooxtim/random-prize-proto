@@ -15,12 +15,12 @@ class model
 
 	public function get_random()
 	{
-		$this->db->query("LOCK TABLES `things`, `settings` WRITE");
+		$this->db->query("LOCK TABLES `things`, `money` WRITE");
 		// get things list
 		$thing_result = $this->db->query("SELECT * FROM `things` WHERE `count` > 0");
 		$thing_count = $thing_result->num_rows;
 		// get money
-		$money_result = $this->db->query("SELECT `value` FROM `settings` WHERE `name` = 'money'");
+		$money_result = $this->db->query("SELECT `value` FROM `money` WHERE `id` = 1");
 		list($money_count) = $money_result->fetch_array();
 		
 		$types = [];
@@ -35,7 +35,6 @@ class model
 		}
 		
 		$st1 = rand(1, count($types));
-// 		$st1 = 2;
 		$result = [];
 		switch ($types[$st1]) {
 			case 'points':
@@ -57,7 +56,7 @@ class model
 					$max = $money_count;
 				}
 				$money_rand = rand($min, $max);
-				$this->db->query("UPDATE `settings` SET `value` = `value` - {$money_rand} WHERE `name` = 'money'");
+				$this->db->query("UPDATE `money` SET `value` = `value` - {$money_rand} WHERE `id` = 1");
 				$result = [
 					'type' => $types[$st1], 
 					'name' => '',
@@ -138,7 +137,7 @@ class model
 						}
 						break;
 					case 'thing':
-						$this->db->query("INSERT INTO `queue` SET `user_id` = {$user_id}, `thing_id` = {$prize['thing_id']}");
+						$this->db->query("INSERT INTO `queue` SET `prize_id` = {$prize_id}");
 						break;
 					default:
 						return false;
@@ -183,7 +182,7 @@ class model
 					case 'points':
 						break;
 					case 'money':
-						$this->db->query("UPDATE `settings` SET `value` = `value` + {$prize['count']} WHERE `name` = 'money'");
+						$this->db->query("UPDATE `money` SET `value` = `value` + {$prize['count']} WHERE `id` = 1");
 						break;
 					case 'thing':
 						$this->db->query("UPDATE `things` SET `count` = `count` + 1 WHERE `thing_id` = {$prize['thing_id']}");

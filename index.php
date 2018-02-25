@@ -23,18 +23,14 @@ if (empty($_GET['r'])) {
 // get prize 
 if ($_GET['r'] == 'getRandom') {
 
+	sleep(1);
 	$model = new model($db, $cfg);
 
 	$prize = $model->get_random();
-	//$model->add_prize($prize);
 	
-// 	if ($prize['type'] == 'points') {
-// 		$model->do_points_credit($prize['prize_id'], $user_id);
-// 	}
-	
-	$templ->top();
+	//$templ->top();
 	$templ->result($prize);
-	$templ->bottom();
+	//$templ->bottom();
 	exit();
 }
 
