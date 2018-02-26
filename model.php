@@ -132,12 +132,13 @@ class model
 						$this->db->query("UPDATE `user` SET `points` = points + {$prize['count']} WHERE `id` = {$user_id}");
 						break;
 					case 'money':
-						if (!$this->request_bankapi()) {
+						$this->db->query("INSERT INTO `payments` SET `count` = {$prize['count']}, `prize_id` = {$prize_id}, `time` = ". time() ."");
+						if (!$this->request_bankapi($this->db->insert_id)) {
 							return false;
 						}
 						break;
 					case 'thing':
-						$this->db->query("INSERT INTO `queue` SET `prize_id` = {$prize_id}");
+						$this->db->query("INSERT INTO `queue` SET `prize_id` = {$prize_id}, `time` = ". time() ."");
 						break;
 					default:
 						return false;
@@ -202,19 +203,20 @@ class model
 		return ceil($money * $this->cfg['ratioMoneyToPoints']);
 	}
 	
-	public function getListPrizes()
-	{
-		$result = $this->db->query("SELECT * FROM `prizes`");
-		$r = [];
-		while ($row = $result->fetch_array()) {
-			$r[] = $row;
-		}
-		return $r;
-	}
+// 	public function getListPrizes()
+// 	{
+// 		$result = $this->db->query("SELECT * FROM `prizes`");
+// 		$r = [];
+// 		while ($row = $result->fetch_array()) {
+// 			$r[] = $row;
+// 		}
+// 		return $r;
+// 	}
 	
-	protected function request_bankapi() 
+	protected function request_bankapi($payment_id) 
 	{
 		sleep(3);
+		$this->db->query("UPDATE `payments` SET `status` = 1 WHERE `payment_id` = {$payment_id}");
 		return true;
 	}
 }

@@ -45,16 +45,16 @@ class template
 			<h3><?= $count ?> points!</h3>
 
 			<p><a href="?r=refuse&amp;id=<?= $prize_id ?>"><button class="btn btn-danger">Refuse</button></a></p>
-			<p><a href="?r=get&amp;id=<?= $prize_id ?>"><button class="btn btn-primary">Get My Points!</button></a></p>
+			<p><a href="?r=get&amp;id=<?= $prize_id ?>"><button class="btn btn-primary">Get Points</button></a></p>
 		<?php } else if ($type == 'money') { ?>
 			<h3>€<?= $count ?>!</h3>
 			<p><a href="?r=refuse&amp;id=<?= $prize_id ?>"><button class="btn btn-danger">Refuse</button></a></p>
-			<p><a href="?r=get&amp;id=<?= $prize_id ?>"><button class="btn btn-primary">Get My Money!</button></a></p>
-			<p><a href="?r=convert&amp;id=<?= $prize_id ?>"><button class="btn btn-success">Convert to Points!</button></a></p>
+			<p><a href="?r=get&amp;id=<?= $prize_id ?>"><button class="btn btn-primary">Get Money</button></a></p>
+			<p><a href="?r=convert&amp;id=<?= $prize_id ?>"><button class="btn btn-success">Convert to Points</button></a></p>
 		<?php } else { ?>
 			<h3>The <?= $name ?>!</h3>
 			<a href="?r=refuse&amp;id=<?= $prize_id ?>"><button class="btn btn-danger">Refuse</button></a>
-			<a href="?r=get&amp;id=<?= $prize_id ?>"><button class="btn btn-success">Get My <?= $name ?>!</button></a>
+			<a href="?r=get&amp;id=<?= $prize_id ?>"><button class="btn btn-success">Get the <?= $name ?>!</button></a>
 		<?php } ?>
 		</div>
 		<?php
@@ -69,9 +69,9 @@ class template
 		<?php if ($type == 'money') { ?>
 			<h3>The money has been sent to your bankcard</h3>
 		<?php } else if ($type == 'points') { ?>
-			<h3>Points credited to your account!</h3>
+			<h3>Points have been credited to your account!</h3>
 		<?php } else { ?>
-			<h3>Your prize will be send</h3>
+			<h3>Your prize will be sent</h3>
 		<?php } ?>
 		<p><a href="?"><button class="btn btn-primary">Back</button></a></p>
 		</div>

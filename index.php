@@ -107,9 +107,3 @@ if ($_GET['r'] == 'refuse') {
 	exit();
 }
 
-if ($_GET['r'] == 'getListPrizes') {
-	// debug
-	$model = new model($db, $cfg);
-	$arr = $model->getListPrizes();
-	echo '<pre>'; print_r($arr);
-}
