@@ -26,7 +26,7 @@ if ($_GET['r'] == 'getRandom') {
 	sleep(1);
 	$model = new model($db, $cfg);
 
-	$prize = $model->get_random();
+	$prize = $model->get_random($user_id);
 	
 	//$templ->top();
 	$templ->result($prize);

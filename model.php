@@ -13,7 +13,7 @@ class model
 		$this->user_id = 1;
 	}
 
-	public function get_random()
+	public function get_random($user_id)
 	{
 		$this->db->query("LOCK TABLES `things`, `money` WRITE");
 		// get things list
@@ -89,6 +89,7 @@ class model
 		
 		if ( ! $this->db->query("
 			INSERT INTO `prizes` SET
+				`user_id` = {$user_id},
 				`time` = ". time() .",
 				`type` = '{$result['type']}',
 				`name` = '" . $this->db->real_escape_string($result['name']) . "', 
@@ -215,7 +216,7 @@ class model
 	
 	protected function request_bankapi($payment_id) 
 	{
-		sleep(3);
+		sleep(1);
 		$this->db->query("UPDATE `payments` SET `status` = 1 WHERE `payment_id` = {$payment_id}");
 		return true;
 	}
